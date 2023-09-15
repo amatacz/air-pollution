@@ -1,0 +1,13 @@
+cities:
+  - name: Milan
+    country_code: IT
+  - name: Genoa
+    country_code: IT
+  - name: Poznan
+    country_code: PL
+  - name: Gdansk
+    country_code: PL
+  - name: Monte-Carlo
+    country_code: MC
+  - name: Nice
+    country_code: FR

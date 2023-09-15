@@ -9,9 +9,3 @@ resource "google_storage_bucket" "amatacz_air_pollution_bucket" {
   location = "EU"
 
 }
-
-resource "google_storage_bucket" "amatacz_openweather_bucket" {
-  name     = "openweather_bucket_amatacz"
-  location = "EU"
-
-}
