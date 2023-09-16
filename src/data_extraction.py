@@ -59,11 +59,12 @@ class OpenWeatherDataExtractor:
 
     def get_weather_daily_forecast_data(
             self,
-            city_name: str,
-            country_code: str,
+            lat: float,
+            lon: float,
+            cnt: int = 1,
     ) -> dict:
         ''' Get current weather data for a city. '''
-        url = f"{self.WEATHER_DAILY_FORECAST_URL}q={city_name},{country_code}&appid={self.openweather_api_key}"
+        url = f"{self.WEATHER_DAILY_FORECAST_URL}lat={lat}&lon={lon}&cnt={cnt}&appid={self.openweather_api_key}"
         return self.get_data_from_url(url)
 
     def get_data_from_url(

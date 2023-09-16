@@ -1,5 +1,6 @@
 from src.data_extraction import OpenWeatherDataExtractor
 
+
 class OpenWeatherDataIngestor:
 
     def __init__(self) -> None:
@@ -64,6 +65,20 @@ class OpenWeatherDataIngestor:
 
         return city_weather_data
 
-    def get_city_weather_forecast_data(self):
-        ''' TO DO '''
-        pass
+    # NIEDOSTĘPNE W DARMOWYM PLANIE
+    # def get_city_weather_forecast_data(
+    #         self,
+    #         lat: float,
+    #         lon: float,
+    #         cnt: int = 1):
+    #     data = OpenWeatherDataExtractor().get_weather_daily_forecast_data(lat, lon, cnt)
+    #     if data:
+    #         tomorrow_city_weather = {
+    #             'weather': data['list'][0]['weather'][0]['description'],
+    #             'temp': data['list'][0]['temp']['day'],
+    #             'temp_min': data['list'][0]['temp']['min'],
+    #             'temp_max': data['list'][0]['temp']['max'],
+    #         }
+    #         return tomorrow_city_weather
+    #     else:
+    #         return "No data"
