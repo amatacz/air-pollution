@@ -43,10 +43,16 @@ class OpenWeatherDataIngestor:
             unix_end_date: int) -> dict:
         data = OpenWeatherDataExtractor().get_air_pollution_history_data(lat, lon, unix_start_date, unix_end_date)
         if data:
-            air_pollution_history_data = {
-                'datetime': data['list'][0]['dt'],
-                'air_components': data['list'][0]['components']
-            }
+            """
+            TU NAPRAWIŁAM, BO PRZYPISYWAŁO TYLKO JEDNĄ WARTOŚĆ POD INDEXEM 0
+            A HISTORYCZNYCH DANYCH JEST DUŻO (NP. PONAD 700 Z PRZEDZIAŁU 2023-09-01 08:00:00 - 2023-10-01 08:00:00)
+            """
+            air_pollution_history_data = {}
+            for i in range(0, len(data['list'])):
+                air_pollution_history_data[i] = {
+                    'datetime': data['list'][i]['dt'],
+                    'air_components': data['list'][i]['components']
+                }
 
         return air_pollution_history_data
 

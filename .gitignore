@@ -165,4 +165,7 @@ secrets/
 *.pdf
 *.png
 *.jpg
+
+# helper files
 notes.txt
+data_transformation.ipynb

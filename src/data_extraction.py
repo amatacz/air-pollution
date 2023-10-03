@@ -74,8 +74,8 @@ class OpenWeatherDataExtractor:
         ''' Asserts response from url call. Return empty dict if fetching error occurs. '''
         try:
             response = requests.get(url)
-            response.raise_for_status() # Raises a HTTPError if the HTTP request returned an unsuccessful status code
+            response.raise_for_status()  # Raises a HTTPError if the HTTP request returned an unsuccessful status code
             return response.json()
         except requests.RequestException as e:
             print(f"Error fetching data from URL: {url}. Error: {e}.")
-            return {} # or raise the exception, or return some default value
+            return {}  # or raise the exception, or return some default value
