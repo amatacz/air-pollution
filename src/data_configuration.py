@@ -27,6 +27,7 @@ class DataConfigurator:
             bigquery.SchemaField("city", "STRING"),
             bigquery.SchemaField("lon", "FLOAT64"),
             bigquery.SchemaField("lat", "FLOAT64"),
+            bigquery.SchemaField("aqi", "FLOAT64"),
             bigquery.SchemaField("co", "FLOAT64"),
             bigquery.SchemaField('no', "FLOAT64"),
             bigquery.SchemaField("no2", "FLOAT64"),
@@ -37,4 +38,16 @@ class DataConfigurator:
             bigquery.SchemaField("nh3", "FLOAT64"),
             bigquery.SchemaField("timestamp", "TIMESTAMP")
         ]
+        return schema
+
+    def all_citity_data_schema(self):
+        ''' Stores schema for cities air pollution table. '''
+        schema = [
+            bigquery.SchemaField("city", "STRING"),
+            bigquery.SchemaField("lon", "FLOAT64"),
+            bigquery.SchemaField("lat", "FLOAT64"),
+            bigquery.SchemaField("tag_name", "STRING"),
+            bigquery.SchemaField("value", "FLOAT64"),
+            bigquery.SchemaField("timestamp", "TIMESTAMP"),
+            ]
         return schema

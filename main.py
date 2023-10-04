@@ -39,18 +39,29 @@ if __name__ == "__main__":
     CloudIntegratorObject.upload_data_to_cloud_from_dict('air_pollution_bucket_amatacz', all_city_data, f'all_city_data.json')
 
     # download data from bucket
-    # NIE UŻYŁAM TEGO, BO PRZEPROCESOWAŁAM "all_city_data z linii 22, ale sprawdzałam - działa"
+    # # NIE UŻYŁAM TEGO, BO PRZEPROCESOWAŁAM "all_city_data z linii 22, ale sprawdzałam - działa"
     # CloudIntegratorObject.download_data_from_cloud_to_dict('air_pollution_bucket_amatacz', 'all_city_data.json')
 
-    # SEKCJA DATA TRANSFORMATION -> NIE MAM POJĘCIA JAK TO LOGICZNIE, OBIEKTOWO POUKŁADAĆ
+    # # SEKCJA DATA TRANSFORMATION -> NIE MAM POJĘCIA JAK TO LOGICZNIE, OBIEKTOWO POUKŁADAĆ
     all_city_data_dict = DataTransformatorObject.save_data_to_dict(all_city_data) 
     all_city_data_frame = DataTransformatorObject.save_dict_to_df(all_city_data_dict)
     all_city_data_frame = DataTransformatorObject.data_cleaning(all_city_data_frame)
 
-    # create BigQuery dataset
-    CloudIntegratorObject.create_bigquery_dataset("air_pollution")
+    # melt all_city_data_frame
+    all_city_data_melted = DataTransformatorObject.transform_all_cities_data(all_city_data_frame)
+
+    # create BigQuery dataset for unified data
+    CloudIntegratorObject.create_bigquery_dataset("air_pollution_dataset_unified")
+    # gets table schema for all_citity_data
+    all_city_data_schema = DataConfiguratorObject.all_citity_data_schema()
+    # create all_city_data table
+    CloudIntegratorObject.create_bigquery_table("air_pollution_dataset_unified", "all_city_data", schema=all_city_data_schema)
+    # populate table with data
+    CloudIntegratorObject.insert_data_from_df_to_bigquery_table(all_city_data_melted, "air_pollution_dataset_unified", "all_city_data", schema=all_city_data_schema)
 
     ''' Run a loop through all cities in dataframe, create table and populate it with data. '''
+    # create BigQuery dataset for cities data
+    CloudIntegratorObject.create_bigquery_dataset("air_pollution")
     for city in all_city_data_frame['city'].unique():
         # gets table schema for city tables
         schema = DataConfiguratorObject.city_datatable_schema()

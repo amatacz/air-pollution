@@ -31,6 +31,7 @@ class OpenWeatherHistoricalDataTransformator:
                     'city': key,
                     'lon': json_file[key]['lon'],
                     'lat': json_file[key]['lat'],
+                    'aqi': json_file[key]['history_air_pollution'][i]['aqi'],
                     'co': json_file[key]['history_air_pollution'][i]['air_components']['co'],
                     'no': json_file[key]['history_air_pollution'][i]['air_components']['no'],
                     'no2': json_file[key]['history_air_pollution'][i]['air_components']['no2'],
@@ -74,3 +75,11 @@ class OpenWeatherHistoricalDataTransformator:
     def save_city_data_to_city_dataframe(self, city, df: pd.DataFrame) -> pd.DataFrame:
         ''' Creates separate DataFrame for each city. '''
         return df[df['city'] == city]
+
+    def transform_all_cities_data(self, df: pd.DataFrame) -> pd.DataFrame:
+        df_transformed = df.melt(id_vars=['city', 'lon', 'lat', 'timestamp'],
+                                 value_vars=['aqi', 'co', 'no', 'no2', 'o3',
+                                             'so2', 'pm2_5', 'pm10', 'nh3'],
+                                 var_name=['tag_name'])
+        df_transformed = df_transformed.sort_values(by=['timestamp', 'tag_name'])
+        return df_transformed

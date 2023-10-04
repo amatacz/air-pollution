@@ -51,6 +51,7 @@ class OpenWeatherDataIngestor:
             for i in range(0, len(data['list'])):
                 air_pollution_history_data[i] = {
                     'datetime': data['list'][i]['dt'],
+                    'aqi': data['list'][0]['main']['aqi'],
                     'air_components': data['list'][i]['components']
                 }
 
