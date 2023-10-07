@@ -18,7 +18,7 @@ class OpenWeatherHistoricalDataTransformator:
         except json.JSONDecodeError:
             return None
 
-    def save_data_to_dict(self, json_file: dict) -> dict:
+    def save_history_data_to_dict(self, json_file: dict) -> dict:
         '''
         Loops through all cities from json_file and save loaded data to dictionary.
         Return None if no json.
@@ -72,14 +72,24 @@ class OpenWeatherHistoricalDataTransformator:
         print("CONVERTED DATATYPES: ", df.dtypes)
         return df
 
-    def save_city_data_to_city_dataframe(self, city, df: pd.DataFrame) -> pd.DataFrame:
-        ''' Creates separate DataFrame for each city. '''
-        return df[df['city'] == city]
-
-    def transform_all_cities_data(self, df: pd.DataFrame) -> pd.DataFrame:
+    def melt_all_cities_data_frame(self, df: pd.DataFrame) -> pd.DataFrame:
+        '''
+        Melts all_cities_data_frame and returns new dataframe.
+        '''
         df_transformed = df.melt(id_vars=['city', 'lon', 'lat', 'timestamp'],
                                  value_vars=['aqi', 'co', 'no', 'no2', 'o3',
                                              'so2', 'pm2_5', 'pm10', 'nh3'],
                                  var_name=['tag_name'])
         df_transformed = df_transformed.sort_values(by=['timestamp', 'tag_name'])
         return df_transformed
+
+    def save_city_data_to_city_dataframe(self, city, df: pd.DataFrame) -> pd.DataFrame:
+        ''' Creates separate DataFrame for each city. '''
+        return df[df['city'] == city]
+
+    def historic_data_transform(self, data_dict):
+        all_city_history_dict = self.save_history_data_to_dict(data_dict)
+        all_city_history_data_frame = self.save_dict_to_df(all_city_history_dict)
+        all_city_history_data_frame = self.data_cleaning(all_city_history_data_frame)
+
+        return all_city_history_data_frame

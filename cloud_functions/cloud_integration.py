@@ -62,7 +62,7 @@ class CloudIntegration:
 
     def upload_data_to_cloud_from_dict(self, bucket_name, data_dict, blob_name):
         ''' Uploads data from a dictionary to GCP bucket. '''
-        bucket = self._get_google_cloud_client().bucket(bucket_name) # connect to bucket
+        bucket = self._get_google_cloud_client().bucket(bucket_name)  # connect to bucket
         blob = bucket.blob(blob_name)  # create a blob
         data_str = json.dumps(data_dict)  # convert dict to string
         blob.upload_from_string(data_str)  # upload data to blob
@@ -81,12 +81,12 @@ class CloudIntegration:
 
         return contents
 
-    def create_bigquery_dataset(self, dataset_name):
+    def _create_bigquery_dataset(self, dataset_name):
         ''' Creates new dataset in BigQuery project.'''
         client = self._get_google_cloud_bigquery_client()  # connect to BigQuery
         dataset = bigquery.Dataset(f"{client.project}.{dataset_name}")  # create dataset
         try:
-            dataset = client.create_dataset(dataset, timeout=30) # make API call
+            dataset = client.create_dataset(dataset, timeout=30)  # make API call
         except Conflict:
             print(f"Dataset {dataset_name} already exists.")
             pass
@@ -94,10 +94,16 @@ class CloudIntegration:
             print(f"Error occured: {e}")
             pass
 
-    def create_bigquery_table(self, dataset_name, table_id, schema):
+    def _create_bigquery_table(self, dataset_name, table_name, schema):
         ''' Creates new tables in BigQuery project and dataset. '''
-        table = bigquery.Table(f"{self.project_id}.{dataset_name}.{table_id}", schema=schema)  # create table
-        try: 
+        table_id = f"{self.project_id}.{dataset_name}.{table_name}"  # create table_id
+        table = bigquery.Table(table_id, schema=schema)  # create table
+        table.clustering_fields = ["city"]
+        table.time_partitioning = bigquery.TimePartitioning(
+            type_=bigquery.TimePartitioningType.DAY,
+            field='timestamp'
+        )
+        try:
             table = self._get_google_cloud_bigquery_client().create_table(table)  # make API call
         except Conflict:
             print(f"Table {table} already exists.")
@@ -106,7 +112,7 @@ class CloudIntegration:
             print(f"Error occured: {e}")
             pass
 
-    def insert_data_from_df_to_bigquery_table(self, dataframe, dataset_name, table_name, schema):
+    def _insert_data_from_df_to_bigquery_table(self, dataframe, dataset_name, table_name, schema):
         ''' Inserts data from DataFrame to BigQuery table '''
 
         table_id = f"{self.project_id}.{dataset_name}.{table_name}"  # choose the destination table
@@ -117,3 +123,11 @@ class CloudIntegration:
             job.result()  # Start the job and wait for it to complete and get the result
         except Exception as e:
             print("Error occured: ", e)
+
+    def create_dataset_table_and_insert_data(self, dataset_name, table_name, schema, data):
+        # create BigQuery dataset
+        self._create_bigquery_dataset(dataset_name)
+        # create BigQueryTable
+        self._create_bigquery_table(dataset_name, table_name, schema=schema)
+        # populate table with data
+        self._insert_data_from_df_to_bigquery_table(data, dataset_name, table_name, schema=schema)
