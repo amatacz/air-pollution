@@ -23,28 +23,29 @@ class OpenWeatherHistoricalDataTransformator:
         Loops through all cities from json_file and save loaded data to dictionary.
         Return None if no json.
         '''
-        dict_data = {}  # data placeholder
-        counter = 0  # counter created to get unique dict_data[key], as "i" value in the loop repeats and data is overwritten
-        for key in json_file.keys():
-            for i in range(0, len(json_file[key]['history_air_pollution'])):
-                dict_data[counter] = {
-                    'city': key,
-                    'lon': json_file[key]['lon'],
-                    'lat': json_file[key]['lat'],
-                    'aqi': json_file[key]['history_air_pollution'][i]['aqi'],
-                    'co': json_file[key]['history_air_pollution'][i]['air_components']['co'],
-                    'no': json_file[key]['history_air_pollution'][i]['air_components']['no'],
-                    'no2': json_file[key]['history_air_pollution'][i]['air_components']['no2'],
-                    'o3': json_file[key]['history_air_pollution'][i]['air_components']['o3'],
-                    'so2': json_file[key]['history_air_pollution'][i]['air_components']['so2'],
-                    'pm2_5': json_file[key]['history_air_pollution'][i]['air_components']['pm2_5'],
-                    'pm10': json_file[key]['history_air_pollution'][i]['air_components']['pm10'],
-                    'nh3': json_file[key]['history_air_pollution'][i]['air_components']['nh3'],
-                    'timestamp': json_file[key]['history_air_pollution'][i]['datetime']
-                }
+        # Flatten nested structures and store each entry in a list
+        entries = [
+            { 
+                'city': city,
+                'lon': data['lon'],
+                'lat': data['lat'],
+                'aqi': item['aqi'],
+                'co': item['air_components']['co'],
+                'no': item['air_components']['no'],
+                'no2': item['air_components']['no2'],
+                'o3': item['air_components']['o3'],
+                'so2': item['air_components']['so2'],
+                'pm2_5': item['air_components']['pm2_5'],
+                'pm10': item['air_components']['pm10'],
+                'nh3': item['air_components']['nh3'],
+                'timestamp': item['datetime']
+            }
+            for city, data in json_file.items()
+            for key, item in data['history_air_pollution'].items()
+        ]
 
-                counter += 1  # increment counter
-        return dict_data
+        # Convert the list of entries into a dictionary with sequential keys
+        return {index: entry for index, entry in enumerate(entries)}
 
     def save_dict_to_df(self, dict_file: dict) -> pd.DataFrame:
         '''
@@ -93,3 +94,8 @@ class OpenWeatherHistoricalDataTransformator:
         all_city_history_data_frame = self.data_cleaning(all_city_history_data_frame)
 
         return all_city_history_data_frame
+
+
+x = OpenWeatherHistoricalDataTransformator()
+file = x.load_json("C:\\Users\\matacza\\Desktop\\Projekty\\DE\\Pobieranie Danych (API)\\code\\data\\all_city_data.json")
+print(x.save_history_data_to_dict(file))
