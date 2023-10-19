@@ -29,7 +29,8 @@ class DataConfigurator:
             with open(self.city_datatable_schema, 'r') as file:
                 data = yaml.safe_load(file)
                 details = data.get('fields', [])
-            schema = [bigquery.SchemaField(detail['name'], detail['type']) for detail in details]
+            schema = [bigquery.SchemaField(detail['name'], detail['type'])
+                      for detail in details]
             return schema
         except FileNotFoundError:
             print(f"Error: File {self.cities_yaml} not found.")
@@ -45,12 +46,15 @@ class DataConfigurator:
             with open(self.unified_city_datatable_schema, 'r') as file:
                 data = yaml.safe_load(file)
                 details = data.get('fields', [])
-            schema = [bigquery.SchemaField(detail['name'], detail['type']) for detail in details]
+            schema = [bigquery.SchemaField(detail['name'], detail['type'])
+                      for detail in details]
             return schema
         except FileNotFoundError:
-            print(f"Error: File {self.unified_city_datatable_schema} not found.")
+            print(f"Error: File {self.unified_city_datatable_schema} \
+                   not found.")
         except PermissionError:
-            print(f"Error: No permission to read the file {self.unified_city_datatable_schema}.")
+            print(f"Error: No permission to read the file \
+                  {self.unified_city_datatable_schema}.")
         except yaml.YAMLError as exc:
             print(f"Error parsng the YAML file: {exc}.")
         return []

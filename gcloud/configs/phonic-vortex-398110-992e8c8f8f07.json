@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "phonic-vortex-398110",
+  "private_key_id": "992e8c8f8f07345ae5539187d8841b70f203131c",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDZJateZmuZSHqt\nkl4SwGc/ueUQYnJIN8EVSXgQVFDjszvC3augUfSFhrZIWKA/p3dqeLLvzOlBdo0L\nif2Ebn884AXk6MKj6yCY5GGhyTKvv9OrEspgJhkqwxxv18TMxBf4tRp3ZyqUnxGB\n5slqkXOHSLg0Le+QLOfRvgJADbHp56UtbwQcTSLMJKXMme366NBma8aVqHajZOFv\n1HUzViEwHMcDbt1V/YI5N2QDSPPfVoG7lRxy0f4PK1zNvsbibagjE0Yz56tXTfuz\nK9mFgJtZwe6/mrHCchLTZZlVhgYgbCeB7lUjWN4nHQXJMlWIZcuaLPANtZm/p9Cc\n3zK7f6nrAgMBAAECggEAVeU0uI7DGUs2W9p+I+S/8tFR7v1CP5buZcE+IRd5N9j6\nVsbg0PYaR4dWK6ADI6rW7eL4xSrFSgPfHyVihzQ+WJI1Qqtf8v9bUZ9lj13LEwJK\ndG1maEopwmSTpxou2uDmqpbY9Up16XxSrJPiMKmAjY8SbnGNRfa9bJZAxZ2lNuST\n5n0lK4wd0a/Ke+b6wHMDW7DNFbH9EJViXItEPt61tyBy1UyfnKAxWla8M4cTglid\n/koR5FdO7VeiiBbl9sb27UDULipYyxXAtLUdK1aMUC1nAlWAoKbogTkmydhIAMj6\nqXZEtMn/jIZP/oMnuY4G3914Xk98nN5LboaK9l5LwQKBgQD7NQCZZCiNe4Gf/sKu\nMNCbJkXVIMQuzr3AqmmazKYQBFHIX7abbri1Okm5z5Lhiv4xQ01qU4gI7Y3JG7qS\nprvXYbjwPSkuGS9qC/DRCAGbsJF3TWKFern8eH+U8aJBXt9fulBvLBfZsqQVmGpn\n93rEqQyUa0VuR7QjnwJ8YjpL+QKBgQDdSk39nP5fiZ6Y043K1dkg14LM2tm/DlaZ\nB6SYLYqdfyf/fcP63rL8h2Z4cvU94k6YDgYz72cnw5R+P+L21WFWQ23VrXJNyfbL\nYMizj4LLS9+J+WxSxX3uiaZ2Hu6IqnjguD34gCyNkwbvlwP8SugZkTeAsBEuyHa7\n6iHSnyx2AwKBgCQsLKrp1kERQMgmKihlFRTSPQoEjttin8ZHg69rupnh1VjyF1xo\nZCaMfyNHdZIOrq2vUE14O8V1V45W9NW7Np88DiJh3DUsITy2/XVMHtcpZLj2JrKr\nym5Fd7Gd3cxl+epR7NUlV0XcyG3npaLU6xO4d/xDOhs4LgNXGUeJ6XUZAoGBAIPw\ngK29BEGsSR5vzHPqqyoUtM01k2yBvQpC71U4mhQrs4p2zvnt/CPrCyK30BcUrq2k\ndvhSPlwMFaZsqwNm2EFZtMwZPTS6PWanjyLYZzCVTXPzfi2fyOUHt3NoH+rmUWoT\nEAfxTB8hUZpanSq48sgDuGcHE0ekiH6kK4RsGVNHAoGBAN9bDAnKY5lGB5LApWqO\n8qFZZT5rBvkYkt/qf2SzTJV58tUodUpQe4mMJ62z881oiLpe6r4+X1q/xL/YZT/Q\nYq4XfFBR79ND0IgbCb6dpG1NWqbqTqNw0jbOF56m/blAbIxTCZNQ1FuL6BZ3ppgE\nQ/Tr+D9GYtmuUqYMYYyuQ7Tp\n-----END PRIVATE KEY-----\n",
+  "client_email": "air-pollution-admin@phonic-vortex-398110.iam.gserviceaccount.com",
+  "client_id": "103161065146756868567",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/air-pollution-admin%40phonic-vortex-398110.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

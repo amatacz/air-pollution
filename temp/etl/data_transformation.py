@@ -20,12 +20,13 @@ class OpenWeatherHistoricalDataTransformator:
 
     def save_history_data_to_dict(self, json_file: dict) -> dict:
         '''
-        Loops through all cities from json_file and save loaded data to dictionary.
+        Loops through all cities from json_file
+        and save loaded data to dictionary.
         Return None if no json.
         '''
         # Flatten nested structures and store each entry in a list
         entries = [
-            { 
+            {
                 'city': city,
                 'lon': data['lon'],
                 'lat': data['lat'],
@@ -58,7 +59,8 @@ class OpenWeatherHistoricalDataTransformator:
             return None
 
     def data_cleaning(self, df: pd.DataFrame) -> pd.DataFrame:
-        # TU NIE WIEM W SUMIE JAK TO ZROBIĆ LOGICZNIE, A OBIEKTOWO, WIĘC NA RAZIE WYPRINTOWAŁAM OUTPUTY
+        # TU NIE WIEM W SUMIE JAK TO ZROBIĆ LOGICZNIE, A OBIEKTOWO,
+        # # WIĘC NA RAZIE WYPRINTOWAŁAM OUTPUTY
 
         # prints information about DatFrame - CZY TO POTRZEBNE?
         print("DATAFRAME INFORMATION: ", df.info())
@@ -94,8 +96,3 @@ class OpenWeatherHistoricalDataTransformator:
         all_city_history_data_frame = self.data_cleaning(all_city_history_data_frame)
 
         return all_city_history_data_frame
-
-
-x = OpenWeatherHistoricalDataTransformator()
-file = x.load_json("C:\\Users\\matacza\\Desktop\\Projekty\\DE\\Pobieranie Danych (API)\\code\\data\\all_city_data.json")
-print(x.save_history_data_to_dict(file))

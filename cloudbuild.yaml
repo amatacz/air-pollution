@@ -1,0 +1,12 @@
+logsBucket: "gs://builds-logs-bucket"
+steps:
+  - name: "gc.io/cloud-builders/gcloud"
+  args:
+    - functions
+    - deploy
+    - function-air-pollution
+    - --source=.
+    - --runtime=python310
+    - --trigger-http
+    - --allow-unauthenticated  # Optional, based on whether you want to allow public access
+    
