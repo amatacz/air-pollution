@@ -40,6 +40,3 @@ def gcloud_get_openweather_data_function(request, context=None) -> dict:
         all_city_data[city['name']]['current_weather'] = city_weather_data
 
     return all_city_data
-
-
-gcloud_get_openweather_data_function('x', 'x')
