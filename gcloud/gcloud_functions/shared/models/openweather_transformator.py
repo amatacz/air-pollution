@@ -1,4 +1,4 @@
-from gcloud_functions.shared.models.openweather_extractor import OpenWeatherDataExtractor
+from shared.models.openweather_extractor import OpenWeatherDataExtractor
 
 
 class OpenWeatherDataIngestor:
