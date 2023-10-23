@@ -9,5 +9,7 @@ cities:
     country_code: PL
   - name: Monte-Carlo
     country_code: MC
-  - name: Nice
-    country_code: FR
+  - name: Verona
+    country_code: IT
+
+

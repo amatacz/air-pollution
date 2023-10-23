@@ -108,6 +108,7 @@ ipython_config.py
 #   in version control.
 #   https://pdm.fming.dev/#use-with-ide
 .pdm.toml
+.vscode
 
 # PEP 582; used by e.g. github.com/David-OConnor/pyflow and github.com/pdm-project/pdm
 __pypackages__/
@@ -159,10 +160,13 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
 
-secrets/
-
 # Edu PDFs and PNGs
 *.pdf
 *.png
 *.jpg
+
+# helper files
 notes.txt
+data_transformation.ipynb
+
+gcloud/configs/phonic-vortex-398110-992e8c8f8f07.json

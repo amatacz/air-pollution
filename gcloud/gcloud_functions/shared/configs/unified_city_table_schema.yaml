@@ -1,0 +1,19 @@
+fields:
+  - name: "city"
+    type: "STRING"
+  - name: "lat"
+    type: "FLOAT64"
+  - name: "lon"
+    type: "FLOAT64"
+  - name: "tag_name"
+    type: "STRING"
+  - name: "value"
+    type: "FLOAT64"
+  - name: "timestamp"
+    type: "TIMESTAMP"
+
+           
+           
+           
+           
+           
