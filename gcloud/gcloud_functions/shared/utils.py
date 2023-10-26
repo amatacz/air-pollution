@@ -6,9 +6,15 @@ import os
 class DataConfigurator:
 
     def __init__(self) -> None:
+<<<<<<< HEAD
         self.cities_yaml = os.path.join(os.path.dirname(__file__), 'configs/cities.yaml')
         # self.city_datatable_schema = 'gcloud\\gcloud_functions\\shared\\configs\\city_table_schema.yaml'
         # self.unified_city_datatable_schema = 'gcloud\\gcloud_functions\\shared\\configs\\unified_city_table_schema.yaml'
+=======
+        self.cities_yaml = os.path.join(os.path.dirname(__file__), 'configs/cities.yaml') 
+        #self.city_datatable_schema = 'gcloud\\gcloud_functions\\shared\\configs\\city_table_schema.yaml'
+        #self.unified_city_datatable_schema = 'gcloud\\gcloud_functions\\shared\\configs\\unified_city_table_schema.yaml'
+>>>>>>> b4a6d4a96998c08c8d0601c25df1885f34892e20
 
     def load_cities_from_yaml(self):
         ''' Extract data about cities for OpenWeather API calls '''
