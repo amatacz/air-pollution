@@ -5,7 +5,7 @@ steps:
       - gcloud
       - functions
       - deploy
-      - function-air-pollution
+      - function-get-openweather-data
       - --entry-point=gcloud_get_openweather_data_function
       - --region=us-central1
       - --source=./gcloud/gcloud_functions
