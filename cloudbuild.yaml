@@ -1,4 +1,4 @@
-logsBucket: "gs://build-logs-bucket"
+logsBucket: "gs://air-pollution-build-logs-bucket"
 steps:
   - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
     args:
