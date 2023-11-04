@@ -1,4 +1,4 @@
-# logsBucket: "gs://builds-logs-bucket"
+logsBucket: "gs://build-logs-bucket"
 steps:
   - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
     args:
