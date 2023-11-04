@@ -1,12 +1,13 @@
 logsBucket: "gs://builds-logs-bucket"
 steps:
-  - name: "gc.io/cloud-builders/gcloud"
-  args:
-    - functions
-    - deploy
-    - function-air-pollution
-    - --source=.
-    - --runtime=python310
-    - --trigger-http
-    - --allow-unauthenticated  # Optional, based on whether you want to allow public access
-    
+  - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
+    args:
+      - gcloud
+      - functions
+      - deploy
+      - function-air-pollution
+      - --entry-point=gcloud_get_openweather_data_function
+      - --region=us-central1
+      - --source=./gcloud/gcloud_functions
+      - --trigger-http
+      - --runtime=python310
