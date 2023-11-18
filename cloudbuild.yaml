@@ -1,15 +1,29 @@
 logsBucket: "gs://air-pollution-build-logs-bucket"
 steps:
-  - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
-    args:
-      - gcloud
-      - functions
-      - deploy
-      - function-get-openweather-data
-      - --entry-point=gcloud_get_openweather_data_function
-      - --region=us-central1
-      - --source=./gcloud/gcloud_functions
-      - --trigger-http
-      - --runtime=python310
+  # - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
+  #   args:
+  #     - gcloud
+  #     - functions
+  #     - deploy
+  #     - function-get-openweather-data
+  #     - --entry-point=gcloud_get_openweather_data_function
+  #     - --region=us-central1
+  #     - --source=./gcloud/gcloud_functions
+  #     - --trigger-http
+  #     - --runtime=python310
 
   
+  # Step to install Airflow and other Python dependencies
+  # build the docker image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/${PROJECT_ID}/cicd:${SHORT_SHA}', '.'] # tag docker image with commit sha
+    id: 'docker build'
+
+  # Example: Passing the environment variable to Docker
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['run', '-e', 'GOOGLE_APPLICATION_CREDENTIALS_JSON=${_CREDENTIALS}', 'gcr.io/${PROJECT_ID}/cicd:${SHORT_SHA}']
+
+  # availableSecrets:
+  #   secretManager:
+  #     - versionName: projects/${PROJECT_ID}/secrets/my-secret-service-account/versions/latest
+  #       env: '_SECRET_ENV_VAR'
