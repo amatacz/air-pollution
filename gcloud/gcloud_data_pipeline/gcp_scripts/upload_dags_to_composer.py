@@ -4,7 +4,7 @@ import argparse
 import glob
 import json
 import os
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 from shutil import copytree, ignore_patterns
 import tempfile
 
