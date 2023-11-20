@@ -12,11 +12,9 @@ ENV WORK_DIRECTORY temp_workdir
 WORKDIR $WORK_DIRECTORY
 
 COPY . ./
-WORKDIR gcloud
 
-
-RUN pwd && ls
-
+# RUN pwd && ls
+#
 # CMD python ./gcloud/gcloud_data_pipeline/gcp_scripts/upload_dags_to_composer.py \
 #         --dags_directory=./gcloud/gcloud_data_pipeline/dags/ \
 #         --dags_bucket=air_pollution_composer_bucket_amatacz \
@@ -30,15 +28,15 @@ RUN pwd && ls
 #         --dags_bucket=air_pollution_composer_bucket_amatacz \
 #         --bucket_folder_name=pyspark 
 
-# CMD python $WORK_DIRECTORY/gcp_scripts/upload_dags_to_composer.py \
-#         --dags_directory=$WORK_DIRECTORY/dags/ \
-#         --dags_bucket=air_pollution_composer_bucket_amatacz \
-#         --bucket_folder_name=dags && \
-#     python $WORK_DIRECTORY/gcp_scripts/upload_dags_to_composer.py \
-#         --dags_directory=$WORK_DIRECTORY/plugins/ \
-#         --dags_bucket=air_pollution_composer_bucket_amatacz \
-#         --bucket_folder_name=dags/plugins && \
-#     python $WORK_DIRECTORY/gcp_scripts/upload_dags_to_composer.py \
-#         --dags_directory=$WORK_DIRECTORY/pyspark/ \
-#         --dags_bucket=air_pollution_composer_bucket_amatacz \
-#         --bucket_folder_name=pyspark 
+CMD python $WORK_DIRECTORY/gcp_scripts/upload_dags_to_composer.py \
+        --dags_directory=$WORK_DIRECTORY/dags/ \
+        --dags_bucket=air_pollution_composer_bucket_amatacz \
+        --bucket_folder_name=dags && \
+    python $WORK_DIRECTORY/gcp_scripts/upload_dags_to_composer.py \
+        --dags_directory=$WORK_DIRECTORY/plugins/ \
+        --dags_bucket=air_pollution_composer_bucket_amatacz \
+        --bucket_folder_name=dags/plugins && \
+    python $WORK_DIRECTORY/gcp_scripts/upload_dags_to_composer.py \
+        --dags_directory=$WORK_DIRECTORY/pyspark/ \
+        --dags_bucket=air_pollution_composer_bucket_amatacz \
+        --bucket_folder_name=pyspark 
