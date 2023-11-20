@@ -19,9 +19,9 @@ steps:
     args: ['build', '-t', 'gcr.io/${PROJECT_ID}/cicd:${SHORT_SHA}', '.'] # tag docker image with commit sha
     id: 'docker build'
 
-  # Example: Passing the environment variable to Docker
-  - name: 'gcr.io/cloud-builders/docker'
-    args: ['run', '-e', 'GOOGLE_APPLICATION_CREDENTIALS_JSON=${_CREDENTIALS}', 'gcr.io/${PROJECT_ID}/cicd:${SHORT_SHA}']
+  # # Example: Passing the environment variable to Docker
+  # - name: 'gcr.io/cloud-builders/docker'
+  #   args: ['run', '-e', 'GOOGLE_APPLICATION_CREDENTIALS_JSON=${_CREDENTIALS}', 'gcr.io/${PROJECT_ID}/cicd:${SHORT_SHA}']
 
   # availableSecrets:
   #   secretManager:
