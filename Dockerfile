@@ -14,18 +14,15 @@ COPY . ./
 
 RUN pwd && ls
 
-# removed $WORKDIR from script path, as COPY command copied whole structure,
-# $WORKDIR was redundant and causes 'No file found' error 
-
-CMD python /gcp_scripts/upload_dags_to_composer.py \
+CMD python $WORK_DIRECTORY/gcp_scripts/upload_dags_to_composer.py \
         --dags_directory=$WORK_DIRECTORY/dags/ \
         --dags_bucket=air_pollution_composer_bucket_amatacz \
         --bucket_folder_name=dags && \
-    python /gcp_scripts/upload_dags_to_composer.py \
+    python $WORK_DIRECTORY/gcp_scripts/upload_dags_to_composer.py \
         --dags_directory=$WORK_DIRECTORY/plugins/ \
         --dags_bucket=air_pollution_composer_bucket_amatacz \
         --bucket_folder_name=dags/plugins && \
-    python /gcp_scripts/upload_dags_to_composer.py \
+    python $WORK_DIRECTORY/gcp_scripts/upload_dags_to_composer.py \
         --dags_directory=$WORK_DIRECTORY/pyspark/ \
         --dags_bucket=air_pollution_composer_bucket_amatacz \
         --bucket_folder_name=pyspark 
