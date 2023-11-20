@@ -8,7 +8,7 @@ COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
 #copy dag code to container image
-ENV WORK_DIRECTORY ./gcloud/gcloud_data_pipeline/
+ENV WORK_DIRECTORY ./gcloud/gcloud_data_pipeline
 WORKDIR $WORK_DIRECTORY
 COPY . ./
 
