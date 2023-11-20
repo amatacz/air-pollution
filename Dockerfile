@@ -8,22 +8,23 @@ COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
 #copy dag code to container image
-ENV WORK_DIRECTORY ./gcloud/gcloud_data_pipeline
-COPY . ./
+ENV WORK_DIRECTORY temp_workdir
 WORKDIR $WORK_DIRECTORY
+
+COPY . ./
 
 RUN pwd && ls
 
-CMD python $WORK_DIRECTORY/gcp_scripts/upload_dags_to_composer.py \
-        --dags_directory=$WORK_DIRECTORY/dags/ \
+CMD python ./gcloud/gcloud_data_pipeline/gcp_scripts/upload_dags_to_composer.py \
+        --dags_directory=./gcloud/gcloud_data_pipeline/dags/ \
         --dags_bucket=air_pollution_composer_bucket_amatacz \
         --bucket_folder_name=dags && \
-    python $WORK_DIRECTORY/gcp_scripts/upload_dags_to_composer.py \
-        --dags_directory=$WORK_DIRECTORY/plugins/ \
+    python ./gcloud/gcloud_data_pipeline/gcp_scripts/upload_dags_to_composer.py \
+        --dags_directory=./gcloud/gcloud_data_pipeline/plugins/ \
         --dags_bucket=air_pollution_composer_bucket_amatacz \
         --bucket_folder_name=dags/plugins && \
-    python $WORK_DIRECTORY/gcp_scripts/upload_dags_to_composer.py \
-        --dags_directory=$WORK_DIRECTORY/pyspark/ \
+    python ./gcloud/gcloud_data_pipeline/gcp_scripts/upload_dags_to_composer.py \
+        --dags_directory=./gcloud/gcloud_data_pipeline/pyspark/ \
         --dags_bucket=air_pollution_composer_bucket_amatacz \
         --bucket_folder_name=pyspark 
 
