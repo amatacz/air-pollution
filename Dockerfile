@@ -12,7 +12,8 @@ ENV WORK_DIRECTORY temp_workdir
 WORKDIR $WORK_DIRECTORY
 
 COPY . ./
-RUN cd gcloud
+WORKDIR gcloud
+
 
 RUN pwd && ls
 
