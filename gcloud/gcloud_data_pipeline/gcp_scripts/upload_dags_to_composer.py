@@ -12,7 +12,7 @@ import tempfile
 from google.cloud import storage
 from google.oauth2 import service_account
 
-load_dotenv(dotenv_path="C:\\Users\\matacza\\Desktop\\Projekty\\DE\\Pobieranie Danych (API)\\code\\gcloud\\configs\\.env")  # CZY TU DODAC LEPIEJ DO PATH CAŁY FOLDER GCLOUD?
+# load_dotenv(dotenv_path="C:\\Users\\matacza\\Desktop\\Projekty\\DE\\Pobieranie Danych (API)\\code\\gcloud\\configs\\.env")  # CZY TU DODAC LEPIEJ DO PATH CAŁY FOLDER GCLOUD?
 
 
 def _get_storage_client():
@@ -25,10 +25,17 @@ def _get_storage_client():
         google storage client
     """
 
-    credentials_json = os.getenv("GCLOUD_JSON_KEY_LOCATION")
+    # credentials_json = os.getenv("GCLOUD_JSON_KEY_LOCATION")
+    # if credentials_json:
+    #     with open(credentials_json, 'r') as f:
+    #         credentials_dict = json.load(f)
+    #     credentials = service_account.Credentials.from_service_account_info(credentials_dict)
+    #     return storage.Client(credentials=credentials)
+    # else:
+    #     return storage.Client()
+    credentials_json = os.getenv('GOOGLE_APPLICATION_CREDENTIALS_JSON')
     if credentials_json:
-        with open(credentials_json, 'r') as f:
-            credentials_dict = json.load(f)
+        credentials_dict = json.loads(credentials_json)
         credentials = service_account.Credentials.from_service_account_info(credentials_dict)
         return storage.Client(credentials=credentials)
     else:
