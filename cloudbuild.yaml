@@ -1,16 +1,16 @@
 logsBucket: "gs://air-pollution-build-logs-bucket"
 steps:
-  # - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
-  #   args:
-  #     - gcloud
-  #     - functions
-  #     - deploy
-  #     - function-get-openweather-data
-  #     - --entry-point=gcloud_get_openweather_data_function
-  #     - --region=us-central1
-  #     - --source=./gcloud/gcloud_functions
-  #     - --trigger-http
-  #     - --runtime=python310
+  - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
+    args:
+      - gcloud
+      - functions
+      - deploy
+      - function-get-openweather-data
+      - --entry-point=gcloud_get_openweather_data_function
+      - --region=us-central1
+      - --source=./gcloud/gcloud_functions
+      - --trigger-http
+      - --runtime=python310
 
   
   # Step to install Airflow and other Python dependencies
