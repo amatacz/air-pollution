@@ -30,7 +30,7 @@ def gcloud_get_openweather_data_function(request, context=None) -> dict:
         coord_data = OpenWeatherDataIngestorObject.get_city_coordinates(city['name'], city['country_code'])
         # get air polluution_data for city
         air_pollution_data = OpenWeatherDataIngestorObject.get_city_air_pollution_data(coord_data['lat'], coord_data['lon'])
-        historical_air_pollution = OpenWeatherDataIngestorObject.get_city_air_pollution_history_data(coord_data['lat'], coord_data['lon'], 1696320000, 1696356000)  # Timestamp podane na 3-10-2023 8-18, na próbę
+        historical_air_pollution = OpenWeatherDataIngestorObject.get_city_air_pollution_history_data(coord_data['lat'], coord_data['lon'], 1701417600, 1701936000)  # Timestamp podane na 1-12-2023 8:00:00 do 7-12-2023 8:00:00, na próbę
         city_weather_data = OpenWeatherDataIngestorObject.get_city_weather_data(coord_data['city_name'], coord_data['country_code'])
 
         # append data placeholder
