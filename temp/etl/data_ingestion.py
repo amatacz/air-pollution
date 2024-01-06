@@ -1,5 +1,5 @@
-from api_functions.data_extraction import OpenWeatherDataExtractor
-from etl.data_configuration import DataConfigurator
+from temp.api_functions.data_extraction import OpenWeatherDataExtractor
+from temp.etl.data_configuration import DataConfigurator
 
 
 class OpenWeatherDataIngestor:

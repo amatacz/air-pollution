@@ -1,6 +1,7 @@
 import yaml
 from google.cloud import bigquery
 import os
+import datetime
 
 
 class DataConfigurator:
@@ -23,7 +24,12 @@ class DataConfigurator:
         except yaml.YAMLError as exc:
             print(f"Error parsing the YAML file: {exc}.")
         return []
+    
+    def timeframe_window(self) -> (int, int):
+        end = datetime.datetime.now()
+        start = end - datetime.timedelta(days=1)
 
+        return int(datetime.datetime.timestamp(start)), int(datetime.datetime.timestamp(end))
     # def load_city_table_schema_from_yaml(self):
     #     ''' Extract data about city table schema for BigQuery table. '''
     #     try:

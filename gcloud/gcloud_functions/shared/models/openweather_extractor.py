@@ -6,7 +6,7 @@ from shared.models.gcloud_integration import GCloudIntegration
 class OpenWeatherDataExtractor:
 
     def __init__(self):
-        #self.openweather_api_key = GCloudIntegration().get_secret('phonic-vortex-398110', 'openweather-api-key')
+        # self.openweather_api_key = GCloudIntegration().get_secret('phonic-vortex-398110', 'openweather-api-key')
         self.openweather_api_key = "1278bf6a964049f13ed0dc5a5b3faaac"
 
         ''' Air Pollution URLs'''

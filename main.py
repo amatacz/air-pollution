@@ -1,9 +1,17 @@
-from cloud_functions import cloud_integration
-from etl import (
+from temp.cloud_functions import cloud_integration
+from temp.etl import (
     data_ingestion,
     data_configuration,
     data_transformation
 )
+
+# from gcloud.gcloud_functions.shared.models. import (
+#     openweather_transformator,
+#     gcloud_integration,
+#     openweather_extractor,
+#     openweather_data_cleaning_and_melting
+# )
+# from gcloud.gcloud_functions.shared import utils
 
 if __name__ == "__main__":
     # create data configurator object
@@ -37,7 +45,7 @@ if __name__ == "__main__":
     all_city_data_melted = DataTransformatorObject.melt_all_cities_data_frame(all_city_data_frame)
 
     ''' Run a loop through all cities in dataframe, create table and populate it with data. '''
-    # get schema for city table 
+    # get schema for city table
     city_table_schema = DataConfiguratorObject.load_city_table_schema_from_yaml()
     for city in all_city_data_frame['city'].unique():
         # create dataframe with city data
