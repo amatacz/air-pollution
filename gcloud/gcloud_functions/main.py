@@ -21,7 +21,7 @@ def gcloud_get_openweather_data_function(request, context=None) -> dict:
 
     # Utils object
     DataConfiguratorObject = DataConfigurator()
-    START, END = DataConfigurator.timeframe_window()
+    START, END = DataConfiguratorObject.timeframe_window()
 
     # data placeholder
     all_city_data = {}
