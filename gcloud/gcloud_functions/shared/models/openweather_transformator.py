@@ -15,10 +15,10 @@ class OpenWeatherDataIngestor:
         data = OpenWeatherDataExtractor().get_geo_direct_cities_data(city_name, country_code)
         if data:
             coords_data = {
-                'city_name': data[0]['name'],
-                'country_code': data[0]['country'],
-                'lat': data[0]['lat'],
-                'lon': data[0]['lon'],
+                "city_name": data[0]["name"],
+                "country_code": data[0]["country"],
+                "lat": data[0]["lat"],
+                "lon": data[0]["lon"],
             }
 
             return coords_data
@@ -30,8 +30,8 @@ class OpenWeatherDataIngestor:
         data = OpenWeatherDataExtractor().get_air_pollution_data(lat, lon)
         if data:
             air_pollution_data = {
-                'datetime': data['list'][0]['dt'],
-                'air_components': data['list'][0]['components']
+                "datetime": data["list"][0]["dt"],
+                "air_components": data["list"][0]["components"]
             }
         return air_pollution_data
 
@@ -44,11 +44,11 @@ class OpenWeatherDataIngestor:
         data = OpenWeatherDataExtractor().get_air_pollution_history_data(lat, lon, unix_start_date, unix_end_date)
         if data:
             air_pollution_history_data = {}
-            for i in range(0, len(data['list'])):
+            for i in range(0, len(data["list"])):
                 air_pollution_history_data[i] = {
-                    'datetime': data['list'][i]['dt'],
-                    'aqi': data['list'][0]['main']['aqi'],
-                    'air_components': data['list'][i]['components']
+                    "datetime": data["list"][i]["dt"],
+                    "aqi": data["list"][0]["main"]["aqi"],
+                    "air_components": data["list"][i]["components"]
                 }
 
         return air_pollution_history_data
@@ -60,10 +60,10 @@ class OpenWeatherDataIngestor:
         data = OpenWeatherDataExtractor().get_weather_data(city_name, country_code)
         if data:
             city_weather_data = {
-                'weather': data['weather'][0]['description'],
-                'temp': data['main']['temp'],
-                'min_temp': data['main']['temp_min'],
-                'max_temp': data['main']['temp_max']
+                "weather": data["weather"][0]["description"],
+                "temp": data["main"]["temp"],
+                "min_temp": data["main"]["temp_min"],
+                "max_temp": data["main"]["temp_max"]
             }
 
         return city_weather_data
@@ -77,10 +77,10 @@ class OpenWeatherDataIngestor:
     #     data = OpenWeatherDataExtractor().get_weather_daily_forecast_data(lat, lon, cnt)
     #     if data:
     #         tomorrow_city_weather = {
-    #             'weather': data['list'][0]['weather'][0]['description'],
-    #             'temp': data['list'][0]['temp']['day'],
-    #             'temp_min': data['list'][0]['temp']['min'],
-    #             'temp_max': data['list'][0]['temp']['max'],
+    #             "weather": data["list"][0]["weather"][0]["description"],
+    #             "temp": data["list"][0]["temp"]["day"],
+    #             "temp_min": data["list"][0]["temp"]["min"],
+    #             "temp_max": data["list"][0]["temp"]["max"],
     #         }
     #         return tomorrow_city_weather
     #     else:

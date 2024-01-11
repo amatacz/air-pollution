@@ -28,16 +28,16 @@ def gcloud_get_openweather_data_function(request, context=None) -> dict:
 
     for city in DataConfiguratorObject.load_cities_from_yaml():
         # get lon and lat for city
-        coord_data = OpenWeatherDataIngestorObject.get_city_coordinates(city['name'], city['country_code'])
+        coord_data = OpenWeatherDataIngestorObject.get_city_coordinates(city["name"], city["country_code"])
         # get air polluution_data for city
-        air_pollution_data = OpenWeatherDataIngestorObject.get_city_air_pollution_data(coord_data['lat'], coord_data['lon'])
-        historical_air_pollution = OpenWeatherDataIngestorObject.get_city_air_pollution_history_data(coord_data['lat'], coord_data['lon'], START, END)
-        city_weather_data = OpenWeatherDataIngestorObject.get_city_weather_data(coord_data['city_name'], coord_data['country_code'])
+        air_pollution_data = OpenWeatherDataIngestorObject.get_city_air_pollution_data(coord_data["lat"], coord_data["lon"])
+        historical_air_pollution = OpenWeatherDataIngestorObject.get_city_air_pollution_history_data(coord_data["lat"], coord_data["lon"], START, END)
+        city_weather_data = OpenWeatherDataIngestorObject.get_city_weather_data(coord_data["city_name"], coord_data["country_code"])
 
         # append data placeholder
-        all_city_data[city['name']] = coord_data
-        all_city_data[city['name']]['air_pollution'] = air_pollution_data
-        all_city_data[city['name']]['history_air_pollution'] = historical_air_pollution
-        all_city_data[city['name']]['current_weather'] = city_weather_data
+        all_city_data[city["name"]] = coord_data
+        all_city_data[city["name"]]["air_pollution"] = air_pollution_data
+        all_city_data[city["name"]]["history_air_pollution"] = historical_air_pollution
+        all_city_data[city["name"]]["current_weather"] = city_weather_data
 
     return str(all_city_data)
