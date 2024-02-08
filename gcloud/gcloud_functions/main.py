@@ -45,7 +45,7 @@ def gcloud_get_openweather_data_function(request, context=None) -> dict:
 
 
 @functions_framework
-def gcloud_transform_api_message(request, context=None) -> None:
+def gcloud_transform_api_message(response, context=None) -> None:
     """
     Run an etl script to transform a dict string data from pubsub message.
     It calls OpenWeatherHistoricalDataTransformator class and uses pandas
@@ -55,5 +55,4 @@ def gcloud_transform_api_message(request, context=None) -> None:
     :param context:
     :return pandas.DataFrame: clean dataframe with air pollutiondata
     """
-    print(type(request))
-    return OpenWeatherHistoricalDataTransformator().historic_data_transform(request)
+    return OpenWeatherHistoricalDataTransformator().historic_data_transform(response)
