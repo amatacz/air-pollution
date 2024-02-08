@@ -1,16 +1,3 @@
-# provider "google" {
-#   credentials = file("C:\\Users\\matacza\\Desktop\\Projekty\\DE\\Pobieranie Danych (API)\\code\\secrets\\google_cloud_service_key.json")
-#   project     = "phonic-vortex-398110"
-#   region      = "us-central1"
-# }
-
-# resource "google_storage_bucket" "amatacz_air_pollution_bucket" {
-#   name     = "air_pollution_bucket_amatacz2"
-#   location = "EU"
-
-# }
-
-
 # Set up Cloud Function for air-pollution API data extraction
 resource "google_cloudfunctions_function" "function-get-openweather-data" {
   name = "function-get-openweather-data"
@@ -23,6 +10,20 @@ resource "google_cloudfunctions_function" "function-get-openweather-data" {
   trigger_http = true
   entry_point = "gcloud_get_openweather_data_function"
 }
+
+# Set up Cloud Function for air-pollution API data extraction
+resource "google_cloudfunctions_function" "function-get-openweather-data" {
+  name = "function-transform-openweather-data"
+  description = "Function to transform data from OpenWeather API"
+  runtime = "python311"
+  available_memory_mb = 256
+  source_repository {
+      url = "https://source.developers.google.com/projects/${var.gcp_project}/repos/${var.repository_name}/moveable-aliases/${var.branch_name}/paths/${var.source_directory}"
+    }
+  trigger_http = true
+  entry_point = "transform_api_message"
+}
+
 
 # Create Pub/Sub topic
 resource "google_pubsub_topic" "air-pollution-topic" {
@@ -67,6 +68,7 @@ resource "google_bigquery_table" "unified_city_data" {
   time_partitioning {
     type = "DAY"
   }
+  # schema może być wskazana z pliku patrz: workflow
   schema = <<EOF
 [
   {

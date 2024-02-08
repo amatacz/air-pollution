@@ -170,3 +170,7 @@ notes.txt
 data_transformation.ipynb
 
 gcloud/configs/phonic-vortex-398110-992e8c8f8f07.json
+gcloud/configs/air-pollution-project-amatacz-5845eff54215.json
+.terraform*
+terraform.tfstate
+terraform.tfstate.backup

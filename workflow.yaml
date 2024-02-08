@@ -4,17 +4,17 @@ main:
     - call_functions:
         call: http.get
         args:
-          url: https://us-central1-phonic-vortex-398110.cloudfunctions.net/function-get-openweather-data
+          url: https://europe-west2-air-pollution-project-amatacz.cloudfunctions.net/function-get-openweather-data
           auth:
             type: OIDC
         result: function_response
     - publish_to_pubsub:
-      call: googleapis.pubsub.v1.projects.topics.publish
-      args:
-        topic: projects/phonic-vortex-398110/topics/air-pollution-topic
-        body:
-          messages:
-            - data: ${base64.encode(text.encode(function_response.body))}
-      result: pubsub_response
+        call: googleapis.pubsub.v1.projects.topics.publish
+        args:
+          topic: projects/air-pollution-project-amatacz/topics/air-pollution-topic
+          body:
+            messages:
+              - data: ${base64.encode(text.encode(function_response.body))}
+        result: pubsub_response
     - return_results:
-      return: ${pubsub_response}
+        return: ${pubsub_response}
