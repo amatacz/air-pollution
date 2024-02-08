@@ -20,7 +20,11 @@ resource "google_cloudfunctions_function" "function-transform-openweather-data" 
   source_repository {
       url = "https://source.developers.google.com/projects/${var.gcp_project}/repos/${var.repository_name}/moveable-aliases/${var.branch_name}/paths/${var.source_directory}"
     }
-  trigger_http = true
+  event_trigger {
+    event_type = "google.pubsub.topic.publish"
+    resource = "projects/${var.gcp_project}/topics/air-pollution-topic"
+
+  }
   entry_point = "gcloud_transform_api_message"
 }
 
