@@ -17,7 +17,7 @@ steps:
       - functions
       - deploy
       - transform-air-pollution-data
-      - --entry-point=transform_api_message
+      - --entry-point=gcloud_transform_api_message
       - --region=us-central1
       - --source=./gcloud/gcloud_functions
       - --trigger-topic=air-pollution-api
