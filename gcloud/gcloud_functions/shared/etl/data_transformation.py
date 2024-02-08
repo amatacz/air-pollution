@@ -6,47 +6,35 @@ class OpenWeatherHistoricalDataTransformator:
     def __init__(self) -> None:
         pass
 
-    def load_json(self, path_to_file: str) -> dict:
-        '''
-        Loads data from .json file in provided path.
-        '''
-        try:
-            with open(path_to_file, "r") as file:
-                json_data = json.load(file)
-
-            return json_data
-        except json.JSONDecodeError:
-            return None
-
     def save_history_data_to_dict(self, json_file: dict) -> dict:
-        '''
-        Loops through all cities from json_file
-        and save loaded data to dictionary.
-        Return None if no json.
-        '''
-        # Flatten nested structures and store each entry in a list
-        entries = [
-            {
-                "city": city,
-                "lon": data["lon"],
-                "lat": data["lat"],
-                "aqi": item["aqi"],
-                "co": item["air_components"]["co"],
-                "no": item["air_components"]["no"],
-                "no2": item["air_components"]["no2"],
-                "o3": item["air_components"]["o3"],
-                "so2": item["air_components"]["so2"],
-                "pm2_5": item["air_components"]["pm2_5"],
-                "pm10": item["air_components"]["pm10"],
-                "nh3": item["air_components"]["nh3"],
-                "timestamp": item["datetime"]
-            }
-            for city, data in json_file.items()
-            for key, item in data["history_air_pollution"].items()
-        ]
+            '''
+            Loops through all cities from json_file
+            and save loaded data to dictionary.
+            Return None if no json.
+            '''
+            # Flatten nested structures and store each entry in a list
+            entries = [
+                {
+                    "city": city,
+                    "lon": data["lon"],
+                    "lat": data["lat"],
+                    "aqi": item["aqi"],
+                    "co": item["air_components"]["co"],
+                    "no": item["air_components"]["no"],
+                    "no2": item["air_components"]["no2"],
+                    "o3": item["air_components"]["o3"],
+                    "so2": item["air_components"]["so2"],
+                    "pm2_5": item["air_components"]["pm2_5"],
+                    "pm10": item["air_components"]["pm10"],
+                    "nh3": item["air_components"]["nh3"],
+                    "timestamp": item["datetime"]
+                }
+                for city, data in json_file.items()
+                for key, item in data["history_air_pollution"].items()
+            ]
 
-        # Convert the list of entries into a dictionary with sequential keys
-        return {index: entry for index, entry in enumerate(entries)}
+            # Convert the list of entries into a dictionary with sequential keys
+            return {index: entry for index, entry in enumerate(entries)}
 
     def save_dict_to_df(self, dict_file: dict) -> pd.DataFrame:
         '''
@@ -55,13 +43,10 @@ class OpenWeatherHistoricalDataTransformator:
         '''
         try:
             return pd.DataFrame.from_dict(dict_file, orient="index")
-        except Exception as e:
+        except Exception:
             return None
 
     def data_cleaning(self, df: pd.DataFrame) -> pd.DataFrame:
-        # TU NIE WIEM W SUMIE JAK TO ZROBIĆ LOGICZNIE, A OBIEKTOWO,
-        # # WIĘC NA RAZIE WYPRINTOWAŁAM OUTPUTY
-
         # prints information about DatFrame - CZY TO POTRZEBNE?
         print("DATAFRAME INFORMATION: ", df.info())
 
@@ -90,9 +75,9 @@ class OpenWeatherHistoricalDataTransformator:
         ''' Creates separate DataFrame for each city. '''
         return df[df["city"] == city]
 
-    def historic_data_transform(self, data_dict):
-        all_city_history_dict = self.save_history_data_to_dict(data_dict)
+    def historic_data_transform(self, response):
+        all_city_history_dict = self.save_history_data_to_dict(response)
         all_city_history_data_frame = self.save_dict_to_df(all_city_history_dict)
         all_city_history_data_frame = self.data_cleaning(all_city_history_data_frame)
-
+        print(all_city_history_data_frame)
         return all_city_history_data_frame

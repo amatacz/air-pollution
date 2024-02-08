@@ -8,6 +8,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(
 
 from shared.models.openweather_transformator import OpenWeatherDataIngestor
 from shared.utils import DataConfigurator
+from shared.etl.data_transformation import OpenWeatherHistoricalDataTransformator
 
 
 @functions_framework.http
@@ -41,3 +42,18 @@ def gcloud_get_openweather_data_function(request, context=None) -> dict:
         all_city_data[city["name"]]["current_weather"] = city_weather_data
 
     return str(all_city_data)
+
+
+@functions_framework
+def transform_api_message(request, context=None) -> None:
+    """
+    Run an etl script to transform a dict string data from pubsub message.
+    It calls OpenWeatherHistoricalDataTransformator class and uses pandas
+    to perform transformation.
+
+    :param request:
+    :param context:
+    :return pandas.DataFrame: clean dataframe with air pollutiondata
+    """
+    print(type(request))
+    return OpenWeatherHistoricalDataTransformator().historic_data_transform(request)
