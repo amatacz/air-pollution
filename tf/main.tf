@@ -12,7 +12,7 @@ resource "google_cloudfunctions_function" "function-get-openweather-data" {
 }
 
 # Set up Cloud Function for air-pollution API data extraction
-resource "google_cloudfunctions_function" "function-get-openweather-data" {
+resource "google_cloudfunctions_function" "function-transform-openweather-data" {
   name = "function-transform-openweather-data"
   description = "Function to transform data from OpenWeather API"
   runtime = "python311"

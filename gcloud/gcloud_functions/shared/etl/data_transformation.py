@@ -6,14 +6,15 @@ class OpenWeatherHistoricalDataTransformator:
     def __init__(self) -> None:
         pass
 
-    def save_history_data_to_dict(self, json_file: dict) -> dict:
-            '''
-            Loops through all cities from json_file
-            and save loaded data to dictionary.
-            Return None if no json.
-            '''
-            # Flatten nested structures and store each entry in a list
-            entries = [
+    def save_history_data_to_dict(self, msg: dict) -> dict:
+        '''
+        Loops through all cities from json_file
+        and save loaded data to dictionary.
+        Return None if no json.
+        '''
+        print(msg)
+        # Flatten nested structures and store each entry in a list
+        entries = [
                 {
                     "city": city,
                     "lon": data["lon"],
@@ -29,12 +30,12 @@ class OpenWeatherHistoricalDataTransformator:
                     "nh3": item["air_components"]["nh3"],
                     "timestamp": item["datetime"]
                 }
-                for city, data in json_file.items()
+                for city, data in json.loads(msg).items()
                 for key, item in data["history_air_pollution"].items()
-            ]
+        ]
 
-            # Convert the list of entries into a dictionary with sequential keys
-            return {index: entry for index, entry in enumerate(entries)}
+        # Convert the list of entries into a dictionary with sequential keys
+        return {index: entry for index, entry in enumerate(entries)}
 
     def save_dict_to_df(self, dict_file: dict) -> pd.DataFrame:
         '''
