@@ -13,7 +13,7 @@ class OpenWeatherHistoricalDataTransformator:
         Return None if no json.
         '''
 
-        print("MSG", msg.get_data())
+        print("MSG GET DATA:\n", msg.get_data())
         # Flatten nested structures and store each entry in a list
         entries = [
                 {
@@ -31,7 +31,7 @@ class OpenWeatherHistoricalDataTransformator:
                     "nh3": item["air_components"]["nh3"],
                     "timestamp": item["datetime"]
                 }
-                for city, data in json.loads(msg.get_data()).items()
+                for city, data in json.loads(msg).items()
                 for key, item in data["history_air_pollution"].items()
         ]
 
