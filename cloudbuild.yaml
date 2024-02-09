@@ -10,7 +10,7 @@ steps:
       - --region=us-central1
       - --source=./gcloud/gcloud_functions
       - --trigger-http
-      - --runtime=python310
+      - --runtime=python311
   - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
     args:
       - gcloud
@@ -21,7 +21,7 @@ steps:
       - --region=us-central1
       - --source=./gcloud/gcloud_functions
       - --trigger-topic=air-pollution-api
-      - --runtime=python310
+      - --runtime=python311
 
 
   # # Step to install Airflow and other Python dependencies
