@@ -7,7 +7,7 @@ steps:
       - deploy
       - function-get-openweather-data
       - --entry-point=gcloud_get_openweather_data_function
-      - --region=us-central1
+      - --region=europe-west2	
       - --source=./gcloud/gcloud_functions
       - --trigger-http
       - --runtime=python311
@@ -18,7 +18,7 @@ steps:
       - deploy
       - transform-air-pollution-data
       - --entry-point=gcloud_transform_api_message
-      - --region=us-central1
+      - --region=europe-west2	
       - --source=./gcloud/gcloud_functions
       - --trigger-topic=air-pollution-api
       - --runtime=python311
