@@ -6,9 +6,9 @@ import json
 
 class GCloudIntegration:
 
-    def __init__(self) -> None:
+    def __init__(self, project_id) -> None:
         self.cloud_key = None
-        self.project_id = None
+        self.project_id = project_id
         self.openweather_api_key = None
 
     def get_secret(self, project_id, secret_id, version_id="latest"):
