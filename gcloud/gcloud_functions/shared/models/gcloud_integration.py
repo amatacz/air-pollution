@@ -24,8 +24,13 @@ class GCloudIntegration:
         # Access the secret version
         response = client.access_secret_version(request={"name": name})
 
-        # Return the decoded payload
-        return response.payload.data.decode("UTF-8")
+        # The decoded payload
+        response_decoded = response.payload.data.decode("UTF-8")
+
+        # Return response in .json
+        self.cloud_key = json.loads(response_decoded)
+        self.project_id = self.cloud_key['project_id']
+        return self.cloud_key, self.project_id
 
     def get_openweather_api_key(self) -> str:
         ''' return an openweather api key from .env file '''
@@ -48,12 +53,17 @@ class GCloudIntegration:
         '''
         Return a client to manage google cloud Big Quert from provided .json key file.
         '''
+        # try:
+        #     credentials = service_account.Credentials.from_service_account_file(self.cloud_key)
+        #     return bigquery.Client(credentials=credentials,
+        #                            project=self.project_id)
+        # except Exception as e:
+        #     return None # if there is no api key provided
+
         try:
-            credentials = service_account.Credentials.from_service_account_file(self.cloud_key)
-            return bigquery.Client(credentials=credentials,
-                                   project=self.project_id)
-        except Exception as e:
-            return None # if there is no api key provided
+            return bigquery.Client(credentials=self.cloud_key, project=self.project_id)
+        except Exception:
+            return None
 
     def upload_data_to_cloud_from_file(self, bucket_name, data_to_upload, blob_name):
         ''' Uploads files with api data to GCP buckets. '''
@@ -120,7 +130,7 @@ class GCloudIntegration:
         table_id = f"{self.project_id}.{dataset_name}.{table_name}"  # choose the destination table
         job_config = bigquery.LoadJobConfig(schema=schema)  # choose table schema
         try:
-            job = self._get_google_cloud_bigquery_client().load_table_from_dataframe(
+            job = self._get_google_cloud_bigquery_client(cred).load_table_from_dataframe(
                 dataframe, table_id, job_config=job_config)  # Upload the contents of a table from a DataFrame
             job.result()  # Start the job and wait for it to complete and get the result
         except Exception as e:

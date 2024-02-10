@@ -12,8 +12,6 @@ class OpenWeatherHistoricalDataTransformator:
         and save loaded data to dictionary.
         Return None if no json.
         '''
-
-        print("MSG GET DATA:\n", msg.get_data())
         # Flatten nested structures and store each entry in a list
         entries = [
                 {

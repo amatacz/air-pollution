@@ -1,5 +1,6 @@
 logsBucket: "gs://air-pollution-build-logs-bucket-amatacz"
 steps:
+  # Steps to deploy functions
   - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
     args:
       - gcloud
@@ -7,7 +8,7 @@ steps:
       - deploy
       - function-get-openweather-data
       - --entry-point=gcloud_get_openweather_data_function
-      - --region=europe-west2	
+      - --region=europe-west1	
       - --source=./gcloud/gcloud_functions
       - --trigger-http
       - --runtime=python311
@@ -16,14 +17,21 @@ steps:
       - gcloud
       - functions
       - deploy
-      - transform-air-pollution-data
+      - function-transform-openweather-data	
       - --entry-point=gcloud_transform_api_message
-      - --region=europe-west2	
+      - --region=europe-west1	
       - --source=./gcloud/gcloud_functions
-      - --trigger-topic=air-pollution-api
+      - --trigger-topic=air-pollution-topic
       - --runtime=python311
 
-
+  # Step to deploy the Cloud Workflows
+  - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
+    entrypoint: 'gcloud'
+    args:
+      - workflows
+      - deploy
+      - --source=workflows/openweather_api_to_pubsub.yaml
+      - --location=europe-west1
   # # Step to install Airflow and other Python dependencies
   # # build the docker image
   # - name: 'gcr.io/cloud-builders/docker'
