@@ -53,17 +53,12 @@ class GCloudIntegration:
         '''
         Return a client to manage google cloud Big Quert from provided .json key file.
         '''
-        # try:
-        #     credentials = service_account.Credentials.from_service_account_file(self.cloud_key)
-        #     return bigquery.Client(credentials=credentials,
-        #                            project=self.project_id)
-        # except Exception as e:
-        #     return None # if there is no api key provided
-
         try:
-            return bigquery.Client(credentials=self.cloud_key, project=self.project_id)
-        except Exception:
-            return None
+            credentials = service_account.Credentials.from_service_account_file(self.cloud_key)
+            return bigquery.Client(credentials=credentials,
+                                   project=self.project_id)
+        except Exception as e:
+            return None # if there is no api key provided
 
     def upload_data_to_cloud_from_file(self, bucket_name, data_to_upload, blob_name):
         ''' Uploads files with api data to GCP buckets. '''
