@@ -4,7 +4,7 @@ main:
     - call_functions:
         call: http.get
         args:
-          url: https://europe-west2-air-pollution-project-amatacz.cloudfunctions.net/function-get-openweather-data
+          url: https://europe-west1-air-pollution-project-amatacz.cloudfunctions.net/function-get-openweather-data
           auth:
             type: OIDC
         result: function_response
