@@ -29,7 +29,7 @@ class OpenWeatherHistoricalDataTransformator:
                     "nh3": item["air_components"]["nh3"],
                     "timestamp": item["datetime"]
                 }
-                for city, data in json.loads(msg).items()
+                for city, data in msg.items()
                 for key, item in data["history_air_pollution"].items()
         ]
 
