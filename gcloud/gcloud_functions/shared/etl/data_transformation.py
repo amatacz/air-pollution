@@ -47,17 +47,11 @@ class OpenWeatherHistoricalDataTransformator:
             return None
 
     def data_cleaning(self, df: pd.DataFrame) -> pd.DataFrame:
-        # prints information about DatFrame - CZY TO POTRZEBNE?
-        print("DATAFRAME INFORMATION: ", df.info())
-
         # replace "ń" with "n" in city names
         df["city"] = df["city"].str.replace("ń", "n")
-
         # convert timestamp column data type to timestamp
         df["timestamp"] = df["timestamp"].astype("datetime64[s]")
 
-        # confirm conversion - CZY TO POTRZEBNE?
-        print("CONVERTED DATATYPES: ", df.dtypes)
         return df
 
     def melt_all_cities_data_frame(self, df: pd.DataFrame) -> pd.DataFrame:
@@ -79,5 +73,4 @@ class OpenWeatherHistoricalDataTransformator:
         all_city_history_dict = self.save_history_data_to_dict(response)
         all_city_history_data_frame = self.save_dict_to_df(all_city_history_dict)
         all_city_history_data_frame = self.data_cleaning(all_city_history_data_frame)
-        print(all_city_history_data_frame)
         return all_city_history_data_frame

@@ -130,7 +130,7 @@ class GCloudIntegration:
         table_id = f"{self.project_id}.{dataset_name}.{table_name}"  # choose the destination table
         job_config = bigquery.LoadJobConfig(schema=schema)  # choose table schema
         try:
-            job = self._get_google_cloud_bigquery_client(cred).load_table_from_dataframe(
+            job = self._get_google_cloud_bigquery_client().load_table_from_dataframe(
                 dataframe, table_id, job_config=job_config)  # Upload the contents of a table from a DataFrame
             job.result()  # Start the job and wait for it to complete and get the result
         except Exception as e:
