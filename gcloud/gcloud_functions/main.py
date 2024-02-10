@@ -69,14 +69,14 @@ def gcloud_transform_api_message(request, context=None) -> None:
     dataframe = OpenWeatherHistoricalDataTransformator().historic_data_transform(json.loads(json_data))
 
     GCloudIntegrationObject = GCloudIntegration()
-    GCloudIntegrationObject.get_secret(
+    credentials = GCloudIntegrationObject.get_secret(
         project_id='air-pollution-project-amatacz',
         secret_id='air-pollution-secret')
 
     DataConfiguratorObject = DataConfigurator()
     schema = DataConfiguratorObject.load_unified_city_table_schema_from_yaml()
 
-    GCloudIntegrationObject._insert_data_from_df_to_bigquery_table(
+    GCloudIntegrationObject._insert_data_from_df_to_bigquery_table(credentials=credentials,
         dataframe=dataframe, dataset_name='air_pollution_dataset_unified',
         table_name='unified_city_data', schema=schema
     )
