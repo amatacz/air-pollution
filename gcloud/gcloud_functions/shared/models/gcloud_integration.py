@@ -1,4 +1,3 @@
-from typing import Any
 from google.cloud import storage, bigquery, secretmanager
 from google.oauth2 import service_account
 from google.api_core.exceptions import Conflict
@@ -24,13 +23,8 @@ class GCloudIntegration:
         # Access the secret version
         response = client.access_secret_version(request={"name": name})
 
-        # The decoded payload
-        response_decoded = response.payload.data.decode("UTF-8")
-
-        # Return response in .json
-        self.cloud_key = json.loads(response_decoded)
-        self.project_id = self.cloud_key['project_id']
-        return self.cloud_key, self.project_id
+        # Return the decoded payload
+        return response.payload.data.decode("UTF-8")
 
     def get_openweather_api_key(self) -> str:
         ''' return an openweather api key from .env file '''
@@ -124,7 +118,7 @@ class GCloudIntegration:
             print(f"Error occured: {e}")
             pass
 
-    def _insert_data_from_df_to_bigquery_table(self, credentials, dataframe, dataset_name, table_name, schema):
+    def insert_data_from_df_to_bigquery_table(self, credentials, dataframe, dataset_name, table_name, schema):
         ''' Inserts data from DataFrame to BigQuery table '''
 
         table_id = f"{self.project_id}.{dataset_name}.{table_name}"  # choose the destination table
