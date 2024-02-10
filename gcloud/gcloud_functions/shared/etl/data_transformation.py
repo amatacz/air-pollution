@@ -73,4 +73,5 @@ class OpenWeatherHistoricalDataTransformator:
         all_city_history_dict = self.save_history_data_to_dict(response)
         all_city_history_data_frame = self.save_dict_to_df(all_city_history_dict)
         all_city_history_data_frame = self.data_cleaning(all_city_history_data_frame)
+        all_city_history_data_frame = self.melt_all_cities_data_frame(all_city_history_data_frame)
         return all_city_history_data_frame
