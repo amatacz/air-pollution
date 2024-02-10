@@ -30,6 +30,7 @@ steps:
     args:
       - workflows
       - deploy
+      - workflow-air-pollution
       - --source=workflows/openweather_api_to_pubsub.yaml
       - --location=europe-west1
   # # Step to install Airflow and other Python dependencies
