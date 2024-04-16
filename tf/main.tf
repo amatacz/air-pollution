@@ -3,7 +3,7 @@ resource "google_cloudfunctions_function" "function-get-openweather-data" {
   name = "function-get-openweather-data"
   description = "Function to retrieve data from OpenWeather API"
   runtime = "python311"
-  available_memory_mb = 256
+  available_memory_mb = 512
   source_repository {
       url = "https://source.developers.google.com/projects/${var.gcp_project}/repos/${var.repository_name}/moveable-aliases/${var.branch_name}/paths/${var.source_directory}"
     }
@@ -16,7 +16,7 @@ resource "google_cloudfunctions_function" "function-transform-openweather-data" 
   name = "function-transform-openweather-data"
   description = "Function to transform data from OpenWeather API"
   runtime = "python311"
-  available_memory_mb = 256
+  available_memory_mb = 512
   source_repository {
       url = "https://source.developers.google.com/projects/${var.gcp_project}/repos/${var.repository_name}/moveable-aliases/${var.branch_name}/paths/${var.source_directory}"
     }
